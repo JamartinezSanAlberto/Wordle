@@ -115,8 +115,8 @@ class Juego ():
                         self.Comparar()
                         self.Estado = False
                     else:
-                        print(self.PalabraSecreta)
-                        print(self.PalabraIntento)
+                        #print(self.PalabraSecreta)
+                        #print(self.PalabraIntento)
                         self.Comparar()
                         self.PalabraIntento = ''
                 else:
