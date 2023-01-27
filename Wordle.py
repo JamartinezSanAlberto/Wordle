@@ -1,8 +1,6 @@
-import time
-
 import pygame
 import sys
-from funciones import *
+from Juego import Juego
 
 # Inicializamos la librería pygame
 pygame.init()

@@ -1,28 +1,16 @@
 import pygame
 import random
-ALFABETO = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'
-COLOR_TECLA_C='#edebeb'
-COLOR_TECLA_O='#222424'
-COLOR_TECLA_V='#298032'
-COLOR_TECLA_A='#D9CB11'
-COLOR_LETRA_O='#363535'
-COLOR_LETRA_C='#EBEBEB'
-
-def ListaPalabras(letras):
-    archivo_palabras = open('recursos/mayusculas.txt', 'r', encoding='utf-8')
-    Palabras = []
-    for linea in archivo_palabras:
-        if (len(linea) == letras + 1):
-            Palabras.append(linea[:letras])
-    archivo_palabras.close()
-    return Palabras
-
-
 class Juego ():
     def __init__(self, screen):
+        self.COLOR_TECLA_C = '#edebeb'
+        self.COLOR_TECLA_O = '#222424'
+        self.COLOR_TECLA_V = '#298032'
+        self.COLOR_TECLA_A = '#D9CB11'
+        self.COLOR_LETRA_O = '#363535'
+        self.COLOR_LETRA_C = '#EBEBEB'
         self.Pantalla= screen
         self.Estado = True
-        self.Palabras = ListaPalabras(5)
+        self.Palabras = self.ListaPalabras(5)
         self.PalabraSecreta = self.Palabras[random.randint(0,len(self.Palabras)-1)]
         self.PalabraIntento =''
         self.Intento = [0,0]
@@ -41,6 +29,14 @@ class Juego ():
 
         self.PintaEscenario()
 
+    def ListaPalabras(self, letras):
+        archivo_palabras = open('recursos/Palabras.txt', 'r', encoding='utf-8')
+        Palabras = []
+        for linea in archivo_palabras:
+            if (len(linea) == letras + 1):
+                Palabras.append(linea[:letras])
+        archivo_palabras.close()
+        return Palabras
 
     def BuscarPosicionTecla(self,Letra):
         IndiceLetra = divmod(self.Alfabeto.index(Letra), 10)
@@ -65,16 +61,16 @@ class Juego ():
         else:
             Size = (35,50)
             FuenteTecla = pygame.font.SysFont("arial", 24)
-        ColorLetra = COLOR_LETRA_C
+        ColorLetra = self.COLOR_LETRA_C
         if 'V' in Estilo:
-            ColorFondo = COLOR_TECLA_V
+            ColorFondo = self.COLOR_TECLA_V
         elif 'A' in Estilo:
-            ColorFondo = COLOR_TECLA_A
+            ColorFondo = self.COLOR_TECLA_A
         elif 'O' in Estilo:
-            ColorFondo = COLOR_TECLA_O
+            ColorFondo = self.COLOR_TECLA_O
         else:
-            ColorLetra = COLOR_LETRA_O
-            ColorFondo = COLOR_TECLA_C
+            ColorLetra = self.COLOR_LETRA_O
+            ColorFondo = self.COLOR_TECLA_C
         pygame.draw.rect(self.Pantalla, ColorFondo, (Posicion[0], Posicion[1], Size[0], Size[1]), 0, 2)
         texto = FuenteTecla.render(Letra, True, ColorLetra)
         PosicionTexto = texto.get_rect(center=(Posicion[0] + (Size[0] / 2), Posicion[1] + (Size[1] / 2)))
@@ -124,7 +120,7 @@ class Juego ():
                         self.BorrarLetra()
             elif (self.Intento[1] == 5) and (self.Intento[0] == 5):
                 self.Estado = False
-        elif (Tecla.unicode.upper() in ALFABETO) and (self.Intento[1] < 5) :
+        elif (Tecla.unicode.upper() in self.Alfabeto) and (self.Intento[1] < 5) :
             self.PonerLetra(Tecla.unicode.upper())
 
     def PantallaFinal(self):
