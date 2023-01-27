@@ -67,7 +67,7 @@ def PantallaDerrota (screen):
     screen.blit (FONDOD, (0, 0))
     linea1 = FUENTEG.render('¡¡¡ LO SENTIMOS !!!', True,  '#222424')
     linea2 = FUENTEP.render('NO has conseguido Averiguar', True,  '#222424')
-    linea3 = FUENTEP.render('La palabra oculta', True,  '#222424')
+    linea3 = FUENTEP.render('La palabra oculta ('+ JuegoActual.getPalabra()+')', True,  '#222424')
     posiciontexto1 = linea1.get_rect(center=(250, 100))
     posiciontexto2 = linea2.get_rect(center=(250, 200))
     posiciontexto3 = linea3.get_rect(center=(250, 250))
@@ -104,6 +104,6 @@ def JugarJuego (JuegoActual):
                 pygame.quit()
                 sys.exit()
 
-NuevoJuego = Juego(PantallaInicial(PANTALLA))
-JugarJuego(NuevoJuego)
+JuegoActual = Juego(PantallaInicial(PANTALLA))
+JugarJuego(JuegoActual)
 

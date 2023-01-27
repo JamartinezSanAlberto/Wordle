@@ -131,3 +131,6 @@ class Juego ():
         evento = pygame.event.get()
         return evento
 
+    def getPalabra (self):
+        return self.PalabraSecreta
+
